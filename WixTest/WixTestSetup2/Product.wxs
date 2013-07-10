@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<Product Id="B92D2318-1860-4ADF-B59B-104F71BA5040" Name="TestProduct" Language="1033" Version="0.0.0.1" Manufacturer="WixEdit" UpgradeCode="AB5B324D-43C2-4117-8510-79DFBA376633">
+		<Package Description="Test file in a Product" Comments="Simple test" InstallerVersion="200" Compressed="yes" />
+		<Media Id="1" Cabinet="simple.cab" EmbedCab="yes" />
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="DEBUG" Name="Debug">
+				<Component Id="ENFORCE.CORECLASSES.ENFORCELIBRARY.DLL" DiskId="1" Guid="2DB3F9F5-8759-494B-A472-08B7493E9AEF">
+					<File Id="ENFORCE.CORECLASSES.ENFORCELIBRARY.DLL" Name="Enforce.CoreClasses.EnforceLibrary.dll" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Enforce.CoreClasses.EnforceLibrary.dll" />
+				</Component>
+				<Component Id="ENFORCE.CORECLASSES.FTPCOMPONENT.DLL" DiskId="1" Guid="9200E2D0-C0AD-4AA6-B32D-628C0077DDDA">
+					<File Id="ENFORCE.CORECLASSES.FTPCOMPONENT.DLL" Name="Enforce.CoreClasses.FTPComponent.dll" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Enforce.CoreClasses.FTPComponent.dll" />
+				</Component>
+				<Component Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE" DiskId="1" Guid="AE9CA185-98FE-411B-A292-29ADF3E7A111">
+					<File Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE" Name="Enforce.WinServices.CDFFTPCollector.exe" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Enforce.WinServices.CDFFTPCollector.exe" />
+				</Component>
+				<Component Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE.CONFIG" DiskId="1" Guid="16F82256-586F-4841-A729-96FE3F668180">
+					<File Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE.CONFIG" Name="Enforce.WinServices.CDFFTPCollector.exe.config" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Enforce.WinServices.CDFFTPCollector.exe.config" />
+				</Component>
+				<Component Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.COMMON.DLL" DiskId="1" Guid="25D8C262-2956-4539-BEA4-92B53A563F52">
+					<File Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.COMMON.DLL" Name="Microsoft.Practices.EnterpriseLibrary.Common.dll" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+				</Component>
+				<Component Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.LOGGING.DLL" DiskId="1" Guid="276AC79A-4F65-47CD-A833-ACF0E6D6A928">
+					<File Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.LOGGING.DLL" Name="Microsoft.Practices.EnterpriseLibrary.Logging.dll" Source="VS2012\Workspaces\Enforce\Branches\Enforce 4.5.x\WindowsServices\CDFFTPCollector\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+				</Component>
+			</Directory>
+			<Component Id="C_ConfigFile" Guid="005E553A-BC4B-4899-B47C-F2A7D55E6F3F" KeyPath="yes">
+				<util:XmlFile Id="ModifyXmlFile" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='ConnectionString'[\]]" Name="value" File="[#]" Value="server=localhost;database=Northwind;uid=sa;password=secret;" />
+			</Component>
+		</Directory>
+		<Feature Id="DefaultFeature" Title="Main Feature" Level="1">
+			<ComponentRef Id="ENFORCE.CORECLASSES.ENFORCELIBRARY.DLL" />
+			<ComponentRef Id="ENFORCE.CORECLASSES.FTPCOMPONENT.DLL" />
+			<ComponentRef Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE" />
+			<ComponentRef Id="ENFORCE.WINSERVICES.CDFFTPCOLLECTOR.EXE.CONFIG" />
+			<ComponentRef Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.COMMON.DLL" />
+			<ComponentRef Id="MICROSOFT.PRACTICES.ENTERPRISELIBRARY.LOGGING.DLL" />
+			<ComponentRef Id="C_ConfigFile" />
+		</Feature>
+		<UI />
+		<UIRef Id="WixUI_FeatureTree" />
+		<PropertyRef Id="NETFRAMEWORK35" />
+		<Condition Message="This application requires .NET Framework X.Y.">Installed OR NETFRAMEWORK35</Condition>
+	</Product>
+</Wix>
